@@ -422,6 +422,16 @@
   text-decoration-color: var(--ink);
 }
 
+.contact__whatsapp {
+  color: #128c7e !important;
+  text-decoration-color: #25d366 !important;
+  font-weight: 600;
+}
+
+.contact__whatsapp:hover {
+  text-decoration-color: #128c7e !important;
+}
+
 .footer {
   margin-top: 3.5rem;
   padding: 1.25rem 0 2.5rem;

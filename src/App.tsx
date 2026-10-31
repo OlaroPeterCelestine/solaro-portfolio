@@ -1,3 +1,4 @@
+import { WHATSAPP_URL } from './config'
 import { projects, skills } from './data'
 import { WhatsAppButton } from './WhatsAppButton'
 import './App.css'
@@ -22,6 +23,11 @@ function App() {
             </li>
             <li>
               <a href="#about">About</a>
+            </li>
+            <li>
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                Reach out
+              </a>
             </li>
             <li>
               <a href="mailto:hello@olaro.design">Email</a>
@@ -152,8 +158,18 @@ function App() {
             </p>
           </div>
           <div id="contact">
-            <h2>Contact</h2>
+            <h2>Reach out</h2>
             <ul className="contact__list">
+              <li>
+                <a
+                  className="contact__whatsapp"
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </li>
               <li>
                 <a href="mailto:hello@olaro.design">hello@olaro.design</a>
               </li>
