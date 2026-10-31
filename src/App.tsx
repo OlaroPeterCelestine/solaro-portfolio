@@ -31,7 +31,7 @@ function App() {
               </a>
             </li>
             <li className="nav__hide-sm">
-              <a href="mailto:hello@olaro.design">Email</a>
+              <a href="mailto:olaropetercelestine@gmail.com">Email</a>
             </li>
           </ul>
         </div>
@@ -182,7 +182,9 @@ function App() {
                 </li>
               ))}
               <li>
-                <a href="mailto:hello@olaro.design">hello@olaro.design</a>
+                <a href="mailto:olaropetercelestine@gmail.com">
+                  olaropetercelestine@gmail.com
+                </a>
               </li>
               <li>
                 <a
