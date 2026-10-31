@@ -357,9 +357,9 @@ function App() {
             </p>
           </div>
         </Reveal>
-        <Stagger as="ol" className="contents">
+        <ol className="contents">
           {featured.map((project, index) => (
-            <StaggerItem as="li" key={project.id}>
+            <li key={project.id}>
               <a className="contents__row" href={`#chapter-${project.id}`}>
                 <span className="contents__num">
                   {String(index + 1).padStart(2, '0')}
@@ -373,9 +373,9 @@ function App() {
                   <span>{project.year}</span>
                 </span>
               </a>
-            </StaggerItem>
+            </li>
           ))}
-          <StaggerItem as="li">
+          <li>
             <a className="contents__row" href="#about">
               <span className="contents__num">✎</span>
               <span className="contents__main">
@@ -386,19 +386,21 @@ function App() {
               </span>
               <span className="contents__meta">Notes</span>
             </a>
-          </StaggerItem>
-        </Stagger>
+          </li>
+        </ol>
 
-        <Stagger className="covers">
+        <div className="covers">
           {featured.map((project) => (
-            <StaggerItem key={project.id}>
-              <a className="cover-card" href={`#chapter-${project.id}`}>
-                <img src={project.image} alt="" />
-                <span className="cover-card__caption">{project.caption}</span>
-              </a>
-            </StaggerItem>
+            <a
+              key={project.id}
+              className="cover-card"
+              href={`#chapter-${project.id}`}
+            >
+              <img src={project.image} alt="" />
+              <span className="cover-card__caption">{project.caption}</span>
+            </a>
           ))}
-        </Stagger>
+        </div>
       </section>
 
       <section className="section wrap" id="about">

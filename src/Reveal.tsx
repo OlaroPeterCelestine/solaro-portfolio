@@ -90,7 +90,8 @@ export function StaggerItem({
   const reduce = useReducedMotion()
 
   const item: Variants = {
-    hidden: { opacity: 0, y: 18 },
+    // Never fade to 0 — top-of-viewport sections can miss whileInView
+    hidden: { opacity: 1, y: 14 },
     show: {
       opacity: 1,
       y: 0,
