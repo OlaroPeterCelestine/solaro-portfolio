@@ -1,18 +1,35 @@
 @import 'tailwindcss';
 
 :root {
-  --bg: #eef1ec;
-  --paper: #f7f8f5;
-  --ink: #171a16;
-  --muted: #5d645c;
-  --line: #d5dbd2;
-  --accent: #1f5c4a;
-  --script: #1f5c4a;
-  --mark: #c9e072;
-  --card: #ffffff;
-  --font: 'Source Sans 3', system-ui, sans-serif;
-  --serif: 'Fraunces', Georgia, serif;
-  --hand: 'Kalam', cursive;
+  --paper: #f3ecdf;
+  --paper-2: #eae1d0;
+  --paper-3: #e0d5c0;
+  --card: #fbf7ef;
+  --ink: #1e1a15;
+  --ink-2: #4a433a;
+  --ink-3: #7d7466;
+  --rule: rgba(30, 26, 21, 0.14);
+  --rule-strong: rgba(30, 26, 21, 0.32);
+  --red: #c8432a;
+  --red-soft: #e9b7a6;
+  --blue: #2c4a8a;
+  --green: #3d6b4f;
+  --hl: #f4d35e;
+  --hl-soft: rgba(244, 211, 94, 0.55);
+  --squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --f-display: 'Gloock', Georgia, serif;
+  --f-body: 'Instrument Sans', system-ui, sans-serif;
+  --f-hand: 'Caveat', 'Segoe Print', cursive;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1080px;
+  --nav-h: 64px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shadow-paper: 0 1px 0 rgba(30, 26, 21, 0.04),
+    0 10px 30px -12px rgba(30, 26, 21, 0.28);
+  --shadow-lift: 0 2px 0 rgba(30, 26, 21, 0.05),
+    0 24px 50px -18px rgba(30, 26, 21, 0.38);
 }
 
 *,
@@ -29,14 +46,15 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
-  font-family: var(--font);
+  font-family: var(--f-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
   color: var(--ink);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(31, 92, 74, 0.06), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(201, 224, 114, 0.12), transparent),
-    var(--bg);
+  background-color: var(--paper);
+  background-image: var(--squiggle);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  font-synthesis: none;
 }
 
 a {
@@ -50,9 +68,14 @@ img {
   display: block;
 }
 
-button {
+button,
+input,
+select {
   font: inherit;
   color: inherit;
+}
+
+button {
   background: none;
   border: none;
   cursor: pointer;
@@ -63,6 +86,12 @@ button {
 }
 
 ::selection {
-  background: var(--mark);
+  background: var(--hl);
   color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px dashed var(--red);
+  outline-offset: 4px;
+  border-radius: 2px;
 }

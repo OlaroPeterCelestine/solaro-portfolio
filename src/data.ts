@@ -6,7 +6,6 @@ export type ProjectLink = {
 export type Project = {
   id: string
   name: string
-  client: string
   category: string
   year: string
   summary: string
@@ -15,6 +14,8 @@ export type Project = {
   links: ProjectLink[]
   featured?: boolean
   stack?: string[]
+  role?: string
+  caption?: string
 }
 
 export const skills = [
@@ -22,58 +23,61 @@ export const skills = [
     name: 'Flutter',
     detail:
       'One codebase for the Android phones most radio listeners actually own — and iOS when the station needs both.',
+    showsIn: ['nrg-ug', 'stream-ug', 'mesob-live', 'playtz', 'sabc-tv'],
   },
   {
     name: 'TypeScript',
     detail:
       'Web clients, admin dashboards, and product sites that stay readable when the live desk is busy.',
+    showsIn: ['nrg-ug', 'stream-ug', 'mesob-live', 'playtz', 'flip-avenue'],
   },
   {
     name: 'Go',
     detail: 'APIs that keep live streams, schedules, and news feeds moving without drama.',
+    showsIn: ['nrg-ug', 'mesob-live', 'playtz'],
   },
   {
     name: 'Python',
     detail: 'Scripts, services, and backend systems when the job calls for speed of thought.',
+    showsIn: ['teamwork', 'thoughtworks'],
   },
   {
     name: 'Django',
     detail: 'Full-stack web apps and admin backends that editors and producers can actually use.',
+    showsIn: ['teamwork', 'thoughtworks'],
   },
   {
     name: 'FastAPI',
     detail: 'Lean Python APIs for mobile apps that need answers in a hurry.',
+    showsIn: ['vodafone-travel', 'mastercard-travel'],
   },
   {
     name: 'PostgreSQL',
     detail: 'Production data for shows, users, and the stuff you cannot afford to lose.',
-  },
-  {
-    name: 'SQLite',
-    detail: 'Local and lightweight storage when the app has to work offline first.',
+    showsIn: ['nrg-ug', 'mesob-live', 'playtz'],
   },
   {
     name: 'Firebase',
     detail: 'Auth, realtime bits, and push — the quiet glue behind many live products.',
-  },
-  {
-    name: 'JavaScript',
-    detail: 'Interactive frontends and Node services around the bigger systems.',
+    showsIn: ['nrg-ug', 'stream-ug', 'mesob-live'],
   },
   {
     name: 'IoT',
     detail:
       'Connected devices and sensor-driven systems — bridging hardware signals to software people can use.',
+    showsIn: [],
   },
   {
     name: 'Automation',
     detail:
       'Workflows that remove the boring work: pipelines, scripts, and systems that keep running without babysitting.',
+    showsIn: ['thoughtworks', 'teamwork'],
   },
   {
     name: 'Data analysis',
     detail:
       'Turning raw logs and metrics into clear decisions — dashboards, insights, and stories the team can act on.',
+    showsIn: ['sabc-news', 'vodafone-travel'],
   },
 ]
 
@@ -81,15 +85,17 @@ export const projects: Project[] = [
   {
     id: 'nrg-ug',
     name: 'NRG UG Radio',
-    client: 'NRG Uganda',
     category: 'App · Web · API',
     year: '2023',
-    summary: 'Live listen & watch for Uganda’s youth radio — without missing the next track.',
+    summary:
+      'Live listen & watch for Uganda’s youth radio — without missing the next track.',
     story:
       'NRG needed more than a brochure site. I built the website and Flutter apps so listeners can stream, watch, catch shows, and stay close to the desk — on the phone and in the browser.',
     image: '/work/nrg-ug.jpg',
     featured: true,
     stack: ['Flutter', 'TypeScript', 'Go'],
+    role: 'App · Website · API',
+    caption: 'the one that stays on in the matatu',
     links: [
       { label: 'Website', url: 'https://www.nrgug.radio/' },
       {
@@ -105,7 +111,6 @@ export const projects: Project[] = [
   {
     id: 'stream-ug',
     name: 'Stream UG Radio',
-    client: 'Stream UG Radio',
     category: 'App · Web',
     year: '2023',
     summary: 'Kampala digital radio — live stream, schedule, news, culture.',
@@ -114,6 +119,8 @@ export const projects: Project[] = [
     image: '/work/stream-ug.jpg',
     featured: true,
     stack: ['Flutter', 'TypeScript'],
+    role: 'App · Website',
+    caption: 'built for the commute and the late night',
     links: [
       { label: 'Website', url: 'https://streamugradio.com/' },
       { label: 'App', url: 'https://streamugradio.com/changelog' },
@@ -122,7 +129,6 @@ export const projects: Project[] = [
   {
     id: 'mesob-live',
     name: 'Mesob Live',
-    client: 'Mesob',
     category: 'App · Web · API',
     year: '2024',
     summary: 'Habesha cultural radio for East Africa and the diaspora.',
@@ -131,6 +137,8 @@ export const projects: Project[] = [
     image: '/work/mesob-live.jpg',
     featured: true,
     stack: ['Flutter', 'TypeScript', 'Go'],
+    role: 'App · Website · API',
+    caption: 'culture that doesn’t drop when the signal dips',
     links: [
       { label: 'Website', url: 'https://www.mesob.live/' },
       {
@@ -142,7 +150,6 @@ export const projects: Project[] = [
   {
     id: 'playtz',
     name: 'Playtz',
-    client: 'Playtz',
     category: 'App · Web · API',
     year: '2024',
     summary: 'Streaming that feels like one product on web and mobile.',
@@ -151,6 +158,8 @@ export const projects: Project[] = [
     image: '/work/playtz.jpg',
     featured: true,
     stack: ['TypeScript', 'Go', 'Flutter'],
+    role: 'Product · Front-end · API',
+    caption: 'one brand, every screen',
     links: [
       { label: 'Website', url: 'https://playtz.com/' },
       {
@@ -162,7 +171,6 @@ export const projects: Project[] = [
   {
     id: 'flip-avenue',
     name: 'Flip Avenue Limited',
-    client: 'Flip Avenue Limited',
     category: 'Web',
     year: '2024',
     summary:
@@ -175,7 +183,6 @@ export const projects: Project[] = [
   {
     id: 'sabc-news',
     name: 'SABC News',
-    client: 'SABC',
     category: 'Web',
     year: '2022',
     summary: 'Live news for South Africa’s public broadcaster.',
@@ -187,7 +194,6 @@ export const projects: Project[] = [
   {
     id: 'sabc-tv',
     name: 'SABC TV',
-    client: 'SABC',
     category: 'App · Web',
     year: '2022',
     summary:
@@ -210,7 +216,6 @@ export const projects: Project[] = [
   {
     id: 'teamwork',
     name: 'Teamwork',
-    client: 'Teamwork.com',
     category: 'Web',
     year: '2021',
     summary: 'Project work that helps agencies stay profitable.',
@@ -221,7 +226,6 @@ export const projects: Project[] = [
   {
     id: 'thoughtworks',
     name: 'ThoughtWorks',
-    client: 'ThoughtWorks',
     category: 'Consulting',
     year: '2021',
     summary: 'Shipping with engineering teams across the stack.',
@@ -232,7 +236,6 @@ export const projects: Project[] = [
   {
     id: 'vodafone-travel',
     name: 'Vodafone Travel',
-    client: 'Vodafone',
     category: 'App · Web',
     year: '2021',
     summary: 'Roaming clarity for people on the move.',
@@ -246,7 +249,6 @@ export const projects: Project[] = [
   {
     id: 'mastercard-travel',
     name: 'Mastercard Travel Pass',
-    client: 'Mastercard',
     category: 'App · Web',
     year: '2020',
     summary: 'Travel benefits that make sense at the border.',
@@ -278,4 +280,19 @@ export const lessons = [
     body: 'APIs, databases, and push are why the live show does not drop mid-sentence. Quiet work. Loud impact.',
     note: '↳ Go · Firebase · Postgres',
   },
+]
+
+export const heroPhrases = [
+  'the live listen',
+  'the morning drive',
+  'the diaspora dial-in',
+  'the newsroom cut',
+  'the stadium roar',
+]
+
+export const statusLines = [
+  'DEEP IN VS CODE',
+  'ON AIR',
+  'SHIPPING QUIETLY',
+  'LISTENING FIRST',
 ]

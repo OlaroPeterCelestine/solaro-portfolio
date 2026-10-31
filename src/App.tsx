@@ -1,31 +1,131 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useState } from 'react'
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from 'framer-motion'
+import { useEffect, useMemo, useState } from 'react'
 import { Reveal, Stagger, StaggerItem } from './Reveal'
-import { WHATSAPP_CONTACTS, WHATSAPP_URL } from './config'
-import { lessons, projects, skills } from './data'
+import { WHATSAPP_URL } from './config'
+import {
+  heroPhrases,
+  lessons,
+  projects,
+  skills,
+  statusLines,
+} from './data'
 import { WhatsAppButton } from './WhatsAppButton'
 import './App.css'
 
 const featured = projects.filter((p) => p.featured)
+const drafts = projects.filter((p) => !p.featured)
 const year = new Date().getFullYear()
 const ease = [0.22, 1, 0.36, 1] as const
 
 const polaroidPose = [
-  { x: '-6%', y: '6%', rotate: -8 },
-  { x: '18%', y: '-2%', rotate: 3 },
-  { x: '48%', y: '10%', rotate: 9 },
-  { x: '10%', y: '34%', rotate: -2 },
+  { x: '2%', y: '8%', rotate: -7 },
+  { x: '28%', y: '0%', rotate: 4 },
+  { x: '52%', y: '12%', rotate: -3 },
+  { x: '18%', y: '38%', rotate: 8 },
 ]
+
+const projectTypes = [
+  'a mobile app',
+  'a website',
+  'a web platform',
+  'a backend & API',
+  'something I can’t name yet',
+]
+
+const needOptions = [
+  'design and build it',
+  'just build it',
+  'design it',
+  'rescue it',
+  'think it through with me',
+]
+
+const timelines = [
+  'this month',
+  'in the next few months',
+  'whenever it’s right',
+  'yesterday, honestly',
+]
+
+function useKampalaClock() {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 30_000)
+    return () => window.clearInterval(id)
+  }, [])
+  return new Intl.DateTimeFormat('en-UG', {
+    timeZone: 'Africa/Kampala',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(now)
+}
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [frontCard, setFrontCard] = useState(1)
+  const [frontCard, setFrontCard] = useState(0)
   const [skillIndex, setSkillIndex] = useState(0)
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const [statusIndex, setStatusIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const [letter, setLetter] = useState({
+    name: '',
+    from: '',
+    type: projectTypes[0],
+    need: needOptions[0],
+    when: timelines[1],
+  })
   const reduce = useReducedMotion()
   const activeSkill = skills[skillIndex]
+  const clock = useKampalaClock()
+  const { scrollYProgress } = useScroll()
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => setProgress(v))
+
+  useEffect(() => {
+    if (reduce) return
+    const phrase = window.setInterval(() => {
+      setPhraseIndex((i) => (i + 1) % heroPhrases.length)
+    }, 3200)
+    const status = window.setInterval(() => {
+      setStatusIndex((i) => (i + 1) % statusLines.length)
+    }, 5000)
+    return () => {
+      window.clearInterval(phrase)
+      window.clearInterval(status)
+    }
+  }, [reduce])
+
+  const mailto = useMemo(() => {
+    const who = letter.name.trim() || 'there'
+    const from = letter.from.trim() || 'somewhere interesting'
+    const body = `Dear Olaro,\n\nI'm ${who} from ${from}. I'm working on ${letter.type} and I'd love you to ${letter.need}. We're hoping to start ${letter.when}.\n\n`
+    return `mailto:olaropetercelestine@gmail.com?subject=${encodeURIComponent(
+      `Portfolio note from ${who}`,
+    )}&body=${encodeURIComponent(body)}`
+  }, [letter])
+
+  const projectById = useMemo(
+    () => Object.fromEntries(projects.map((p) => [p.id, p])),
+    [],
+  )
 
   return (
     <div className="site">
+      <a className="skip" href="#contents">
+        Skip to the story
+      </a>
+
+      <div className="progress" aria-hidden="true">
+        <div className="progress__bar" style={{ transform: `scaleX(${progress})` }} />
+      </div>
+
       <WhatsAppButton />
 
       <motion.nav
@@ -58,37 +158,34 @@ function App() {
             aria-label="Menu"
             onClick={() => setMenuOpen((v) => !v)}
           >
-            {menuOpen ? '×' : '☰'}
+            <span />
+            <span />
           </button>
         </div>
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              className="wrap nav__drawer is-open"
+              className="wrap nav__drawer"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.28, ease }}
             >
+              <p className="where">where to?</p>
               <ul>
                 <li>
                   <a href="#chapters" onClick={() => setMenuOpen(false)}>
-                    01 Chapters
-                  </a>
-                </li>
-                <li>
-                  <a href="#tools" onClick={() => setMenuOpen(false)}>
-                    02 Tools
+                    <span>01</span> Chapters
                   </a>
                 </li>
                 <li>
                   <a href="#about" onClick={() => setMenuOpen(false)}>
-                    03 About
+                    <span>02</span> About
                   </a>
                 </li>
                 <li>
                   <a href="#write" onClick={() => setMenuOpen(false)}>
-                    04 Write to me
+                    <span>03</span> Write to me
                   </a>
                 </li>
                 <li>
@@ -109,13 +206,24 @@ function App() {
 
       <header className="hero wrap" id="top">
         <motion.p
+          className="hero__status"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+          Kampala {clock} · {statusLines[statusIndex]}
+        </motion.p>
+
+        <motion.p
           className="hero__kicker"
           initial={reduce ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05, ease }}
         >
           <span>A working notebook</span>
+          <span>{year}</span>
         </motion.p>
+
         <motion.p
           className="hero__hello"
           initial={reduce ? false : { opacity: 0, x: -18 }}
@@ -124,26 +232,46 @@ function App() {
         >
           Hi, I’m Olaro.
         </motion.p>
+
         <motion.h1
           className="hero__title"
           initial={reduce ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.2, ease }}
         >
-          I build software for the <em>on-air</em> moments:{' '}
-          <span className="swap">the live listen</span>
+          I build software for the <em>on-air</em> moments:
+          <br />
+          <span className="swap">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={heroPhrases[phraseIndex]}
+                initial={reduce ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease }}
+              >
+                {heroPhrases[phraseIndex]}
+              </motion.span>
+            </AnimatePresence>
+            <span className="cursor" aria-hidden="true">
+              |
+            </span>
+          </span>
         </motion.h1>
+
         <motion.p
           className="hero__lede"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.32, ease }}
         >
-          I’m a full-stack developer. I take radio and streaming products from a
-          Flutter app in someone’s hand, to a TypeScript site that loads on a bad
-          connection, to the Go, Django, or FastAPI backend quietly holding it
-          together. I’m also strong with IoT, automation, and data analysis.
+          I’m a full-stack developer. I take radio and streaming products from a{' '}
+          <span className="hl">Flutter app in someone’s hand</span>, to a TypeScript
+          site that loads on a bad connection, to the Go, Django, or FastAPI backend
+          quietly holding it together. I’m also strong with IoT, automation, and data
+          analysis.
         </motion.p>
+
         <motion.div
           className="hero__actions"
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -158,68 +286,79 @@ function App() {
           </a>
         </motion.div>
 
-        <motion.p
-          className="stack__hint"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-        >
-          go on, tap the covers
-        </motion.p>
-        <div className="stack" aria-hidden="true">
-          {featured.map((project, index) => {
-            const pose = polaroidPose[index] ?? polaroidPose[0]
-            return (
-              <motion.button
-                type="button"
-                key={project.id}
-                className={`polaroid${frontCard === index ? ' is-front' : ''}`}
-                style={{ left: pose.x, top: pose.y }}
-                initial={
-                  reduce
-                    ? false
-                    : { opacity: 0, scale: 0.86, rotate: pose.rotate - 12, y: 40 }
-                }
-                animate={{
-                  opacity: 1,
-                  scale: frontCard === index ? 1.04 : 1,
-                  rotate: pose.rotate,
-                  y: 0,
-                  zIndex: frontCard === index ? 12 : index + 1,
-                }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 220,
-                  damping: 18,
-                  delay: reduce ? 0 : 0.45 + index * 0.08,
-                }}
-                whileHover={
-                  reduce
-                    ? undefined
-                    : { scale: 1.06, rotate: pose.rotate + (index % 2 ? -2 : 2) }
-                }
-                whileTap={reduce ? undefined : { scale: 0.98 }}
-                onClick={() => setFrontCard(index)}
-              >
-                <img src={project.image} alt="" />
-                <div className="polaroid__label">
-                  Ch. {String(index + 1).padStart(2, '0')} · {project.name}
-                </div>
-              </motion.button>
-            )
-          })}
+        <div className="stack-block">
+          <p className="stack__hint">go on, move them around</p>
+          <div className="stack" aria-hidden="true">
+            {featured.map((project, index) => {
+              const pose = polaroidPose[index] ?? polaroidPose[0]
+              return (
+                <motion.div
+                  key={project.id}
+                  className={`polaroid${frontCard === index ? ' is-front' : ''}`}
+                  style={{ left: pose.x, top: pose.y }}
+                  drag={!reduce}
+                  dragConstraints={{ left: -40, right: 40, top: -30, bottom: 40 }}
+                  dragElastic={0.18}
+                  initial={
+                    reduce
+                      ? false
+                      : {
+                          opacity: 0,
+                          scale: 0.86,
+                          rotate: pose.rotate - 12,
+                          y: 40,
+                        }
+                  }
+                  animate={{
+                    opacity: 1,
+                    scale: frontCard === index ? 1.04 : 1,
+                    rotate: pose.rotate,
+                    y: 0,
+                    zIndex: frontCard === index ? 12 : index + 1,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 220,
+                    damping: 18,
+                    delay: reduce ? 0 : 0.45 + index * 0.08,
+                  }}
+                  whileHover={
+                    reduce
+                      ? undefined
+                      : {
+                          scale: 1.05,
+                          rotate: pose.rotate + (index % 2 ? -2 : 2),
+                        }
+                  }
+                  whileTap={reduce ? undefined : { scale: 0.98, cursor: 'grabbing' }}
+                  onPointerDown={() => setFrontCard(index)}
+                  onDragStart={() => setFrontCard(index)}
+                >
+                  <img src={project.image} alt="" />
+                  <div className="polaroid__label">
+                    <span>
+                      Ch. {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <a href={`#chapter-${project.id}`}>{project.name} →</a>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </header>
 
       <section className="section wrap" id="contents">
         <Reveal>
-          <p className="section__eyebrow">Contents</p>
-          <h2 className="section__title">
-            Stations, streams &amp; the odd travel brief.
-          </h2>
+          <div className="section__head">
+            <h2 className="section__title">Contents</h2>
+            <p className="section__aside">
+              four stations, four very different rooms.
+            </p>
+          </div>
         </Reveal>
         <Stagger as="ol" className="contents">
-          {projects.map((project, index) => (
+          {featured.map((project, index) => (
             <StaggerItem as="li" key={project.id}>
               <a className="contents__row" href={`#chapter-${project.id}`}>
                 <span className="contents__num">
@@ -229,7 +368,10 @@ function App() {
                   <span className="contents__name">{project.name}</span>
                   <span className="contents__blurb">{project.summary}</span>
                 </span>
-                <span className="contents__meta">{project.category}</span>
+                <span className="contents__meta">
+                  <span>{project.category}</span>
+                  <span>{project.year}</span>
+                </span>
               </a>
             </StaggerItem>
           ))}
@@ -239,13 +381,23 @@ function App() {
               <span className="contents__main">
                 <span className="contents__name">About the author</span>
                 <span className="contents__blurb">
-                  Swimming, rugby, basketball &amp; triathlon — then back to the
-                  desk.
+                  swimming, rugby, basketball &amp; triathlon
                 </span>
               </span>
               <span className="contents__meta">Notes</span>
             </a>
           </StaggerItem>
+        </Stagger>
+
+        <Stagger className="covers">
+          {featured.map((project) => (
+            <StaggerItem key={project.id}>
+              <a className="cover-card" href={`#chapter-${project.id}`}>
+                <img src={project.image} alt="" />
+                <span className="cover-card__caption">{project.caption}</span>
+              </a>
+            </StaggerItem>
+          ))}
         </Stagger>
       </section>
 
@@ -255,15 +407,12 @@ function App() {
           <h2 className="section__title">
             Three things I learned <em>the hard way.</em>
           </h2>
-          <p className="section__sub">
-            Away from the keyboard I love swimming, rugby, basketball, and
-            triathlon — movement that keeps the head clear for building.
-          </p>
         </Reveal>
         <Stagger className="lessons">
-          {lessons.map((lesson) => (
+          {lessons.map((lesson, index) => (
             <StaggerItem key={lesson.right}>
               <article className="lesson">
+                <p className="lesson__num">{String(index + 1).padStart(2, '0')}</p>
                 <p className="lesson__wrong">{lesson.wrong}</p>
                 <h3 className="lesson__right">{lesson.right}</h3>
                 <p className="lesson__body">{lesson.body}</p>
@@ -280,18 +429,20 @@ function App() {
           <h2 className="section__title">
             Each one starts with a <em>listener</em>, not a feature list.
           </h2>
-          <p className="section__sub">
-            Featured builds — tap Website or App to open the real thing.
-          </p>
         </Reveal>
 
         {featured.map((project, index) => (
-          <Reveal key={project.id} delay={0.05}>
-            <article className="chapter" id={`chapter-${project.id}`}>
-              <motion.div
+          <Reveal key={project.id} delay={0.04}>
+            <article
+              className={`chapter${index % 2 ? ' chapter--flip' : ''}`}
+              id={`chapter-${project.id}`}
+            >
+              <a
                 className="chapter__cover"
-                whileHover={reduce ? undefined : { rotate: index % 2 ? -3 : 3, y: -4 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                href={project.links[0]?.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${project.name}`}
               >
                 <img
                   src={project.image}
@@ -300,10 +451,11 @@ function App() {
                   height={1000}
                   loading="lazy"
                 />
-              </motion.div>
+                <span className="chapter__cover-note">{project.caption}</span>
+              </a>
               <div>
                 <p className="chapter__kicker">
-                  Chapter {String(index + 1).padStart(2, '0')} · {project.category}
+                  Chapter {String(index + 1).padStart(2, '0')} · {project.year}
                 </p>
                 <h3 className="chapter__title">{project.name}</h3>
                 <p className="chapter__summary">{project.summary}</p>
@@ -314,6 +466,9 @@ function App() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                )}
+                {project.role && (
+                  <p className="chapter__role">My part: {project.role}</p>
                 )}
                 <div className="chapter__links">
                   {project.links.map((link) => (
@@ -326,39 +481,35 @@ function App() {
                       {link.label} →
                     </a>
                   ))}
+                  <a href={project.links[0]?.url} target="_blank" rel="noreferrer">
+                    Read the chapter →
+                  </a>
                 </div>
               </div>
             </article>
           </Reveal>
         ))}
 
-        <div className="shelf">
+        <div className="drawer">
           <Reveal>
-            <p className="section__eyebrow">Also on the shelf</p>
+            <p className="section__eyebrow">Still in the drawer</p>
+            <h3 className="drawer__title">Drafts I haven’t finished writing up.</h3>
           </Reveal>
-          <Stagger as="ol" className="contents">
-            {projects
-              .filter((p) => !p.featured)
-              .map((project, index) => (
-                <StaggerItem as="li" key={project.id}>
-                  <a
-                    className="contents__row"
-                    id={`chapter-${project.id}`}
-                    href={project.links[0]?.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span className="contents__num">
-                      {String(index + 5).padStart(2, '0')}
-                    </span>
-                    <span className="contents__main">
-                      <span className="contents__name">{project.name}</span>
-                      <span className="contents__blurb">{project.summary}</span>
-                    </span>
-                    <span className="contents__meta">{project.category}</span>
-                  </a>
-                </StaggerItem>
-              ))}
+          <Stagger as="ol" className="drawer__list">
+            {drafts.map((project) => (
+              <StaggerItem as="li" key={project.id}>
+                <a
+                  className="drawer__row"
+                  href={project.links[0]?.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="drawer__year">{project.year}</span>
+                  <span className="drawer__name">{project.name}</span>
+                  <span className="drawer__blurb">{project.summary}</span>
+                </a>
+              </StaggerItem>
+            ))}
           </Stagger>
         </div>
       </section>
@@ -368,7 +519,7 @@ function App() {
           <p className="section__eyebrow">Appendix A</p>
           <h2 className="section__title">What’s on the desk.</h2>
           <p className="section__sub">
-            Tap a tool and I’ll tell you why it’s there.
+            Tap a tool and I’ll tell you why it’s there and where it shows up.
           </p>
         </Reveal>
         <div className="tools__tabs" role="tablist" aria-label="Tools">
@@ -391,13 +542,33 @@ function App() {
               key={activeSkill.name}
               className="tools__panel"
               role="tabpanel"
-              initial={reduce ? false : { opacity: 0, y: 12, filter: 'blur(4px)' }}
+              initial={
+                reduce ? false : { opacity: 0, y: 12, filter: 'blur(4px)' }
+              }
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={reduce ? undefined : { opacity: 0, y: -8, filter: 'blur(4px)' }}
+              exit={
+                reduce ? undefined : { opacity: 0, y: -8, filter: 'blur(4px)' }
+              }
               transition={{ duration: 0.35, ease }}
             >
               <p className="tools__why">why {activeSkill.name}?</p>
               <p className="tools__detail">{activeSkill.detail}</p>
+              {activeSkill.showsIn.length > 0 && (
+                <div className="tools__shows">
+                  <p className="tools__shows-label">Shows up in</p>
+                  <ul>
+                    {activeSkill.showsIn.map((id) => {
+                      const project = projectById[id]
+                      if (!project) return null
+                      return (
+                        <li key={id}>
+                          <a href={`#chapter-${id}`}>{project.name}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -405,52 +576,137 @@ function App() {
 
       <section className="section wrap" id="write">
         <Reveal>
-          <p className="section__eyebrow">Last page · write back</p>
+          <p className="section__eyebrow">
+            Last page · the part where you write back
+          </p>
           <h2 className="section__title">
             Got a station that <em>needs</em> building?
           </h2>
           <p className="section__sub">
-            Open to full-time roles, freelance work, and ambitious side quests.
+            Fill in the blanks and it turns into an email. I’m open to full-time
+            roles, freelance projects and the odd ambitious side quest.
           </p>
         </Reveal>
+
         <Reveal delay={0.08}>
-          <div className="letter">
+          <form
+            className="letter"
+            onSubmit={(e) => {
+              e.preventDefault()
+              window.location.href = mailto
+            }}
+          >
+            <p className="letter__stamp">UG · {year}</p>
             <p className="letter__dear">Dear Olaro,</p>
+            <p className="letter__body">
+              I’m{' '}
+              <input
+                aria-label="Your name"
+                placeholder="your name"
+                value={letter.name}
+                onChange={(e) =>
+                  setLetter((l) => ({ ...l, name: e.target.value }))
+                }
+              />{' '}
+              from{' '}
+              <input
+                aria-label="Where you work"
+                placeholder="where you work"
+                value={letter.from}
+                onChange={(e) =>
+                  setLetter((l) => ({ ...l, from: e.target.value }))
+                }
+              />
+              . I’m working on{' '}
+              <select
+                aria-label="Project type"
+                value={letter.type}
+                onChange={(e) =>
+                  setLetter((l) => ({ ...l, type: e.target.value }))
+                }
+              >
+                {projectTypes.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>{' '}
+              and I’d love you to{' '}
+              <select
+                aria-label="What you need"
+                value={letter.need}
+                onChange={(e) =>
+                  setLetter((l) => ({ ...l, need: e.target.value }))
+                }
+              >
+                {needOptions.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+              . We’re hoping to start{' '}
+              <select
+                aria-label="Timeline"
+                value={letter.when}
+                onChange={(e) =>
+                  setLetter((l) => ({ ...l, when: e.target.value }))
+                }
+              >
+                {timelines.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+              .
+            </p>
             <div className="letter__actions">
-              {WHATSAPP_CONTACTS.map((contact) => (
-                <a
-                  key={contact.number}
-                  className="wa"
-                  href={contact.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  WhatsApp · {contact.display} →
-                </a>
-              ))}
-              <a href="mailto:olaropetercelestine@gmail.com">
-                olaropetercelestine@gmail.com →
-              </a>
-              <a
-                href="https://github.com/OlaroPeterCelestine"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub →
-              </a>
-              <a
-                href="https://www.linkedin.com/in/peter-celestine-olaro-6b2aa6282"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn →
+              <button type="submit" className="btn btn--solid">
+                Seal it &amp; send →
+              </button>
+              <a className="btn btn--ghost" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                Or WhatsApp →
               </a>
             </div>
-          </div>
+            <p className="letter__note">
+              it opens in your mail app, nothing is stored
+            </p>
+          </form>
         </Reveal>
 
         <footer className="footer">
-          <span>Olaro · written &amp; built by hand</span>
+          <div>
+            <p className="footer__sign">
+              <span className="hand">Olaro</span>
+              <span>written, designed &amp; built by hand</span>
+            </p>
+            <ul className="footer__social">
+              <li>
+                <a
+                  href="https://github.com/OlaroPeterCelestine"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/peter-celestine-olaro-6b2aa6282"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href="mailto:olaropetercelestine@gmail.com">
+                  olaropetercelestine@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
           <div className="footer__links">
             <a href="#top">back to the first page ↑</a>
             <span>© {year}</span>
