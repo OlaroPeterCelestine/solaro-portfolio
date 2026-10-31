@@ -246,7 +246,8 @@ function App() {
                   <span>
                     <span className="contents__name">About the author</span>
                     <p className="contents__blurb">
-                      Radio desks, diaspora streams &amp; a laptop that travels.
+                      Swimming, rugby, basketball &amp; triathlon — then back to
+                      the desk.
                     </p>
                   </span>
                   <span className="contents__meta">Notes</span>
@@ -263,6 +264,10 @@ function App() {
           <h2 className="section__title">
             Three things I learned <em>the hard way.</em>
           </h2>
+          <p className="section__sub">
+            Away from the keyboard I love swimming, rugby, basketball, and
+            triathlon — movement that keeps the head clear for building.
+          </p>
         </Reveal>
         <Stagger className="lessons">
           {lessons.map((lesson) => (
