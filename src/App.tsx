@@ -5,6 +5,7 @@ import './App.css'
 
 function App() {
   const heroImage = projects.find((p) => p.id === 'nrg-ug') ?? projects[0]
+  const heroWeb = heroImage?.links.find((l) => l.label === 'Website')
 
   return (
     <div className="site">
@@ -58,10 +59,10 @@ function App() {
             </p>
           </div>
 
-          {heroImage && (
+          {heroImage && heroWeb && (
             <a
               className="hero__panel"
-              href={heroImage.url}
+              href={heroWeb.url}
               target="_blank"
               rel="noreferrer"
               aria-label={`Open ${heroImage.name}`}
@@ -73,7 +74,7 @@ function App() {
               />
               <span className="hero__panel-caption">
                 <span>{heroImage.name}</span>
-                <span>Visit ↗</span>
+                <span>Website ↗</span>
               </span>
             </a>
           )}
@@ -87,41 +88,49 @@ function App() {
         </div>
 
         <div className="work__grid">
-          {projects.map((project) => (
-            <a
-              key={project.id}
-              className={`project project--${project.span}`}
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="project__media">
-                <img
-                  src={project.image}
-                  alt={`${project.name} — live product`}
-                  loading="lazy"
-                />
-                <span className="project__shade" aria-hidden="true" />
-                {project.platforms && project.platforms.length > 0 && (
+          {projects.map((project) => {
+            const hasApp = project.links.some((l) =>
+              /app/i.test(l.label),
+            )
+            return (
+              <article key={project.id} className="project">
+                <div className="project__media">
+                  <img
+                    src={project.image}
+                    alt={`${project.name} screenshot`}
+                    loading="lazy"
+                    width={1600}
+                    height={1000}
+                  />
                   <ul className="project__platforms" aria-label="Platforms">
-                    {project.platforms.map((platform) => (
-                      <li key={platform}>{platform}</li>
-                    ))}
+                    <li>Web</li>
+                    {hasApp && <li>App</li>}
                   </ul>
-                )}
-              </div>
-              <div className="project__meta">
-                <div>
-                  <h2 className="project__name">{project.name}</h2>
-                  <p className="project__summary">{project.summary}</p>
-                  <p className="project__tags">
-                    {project.category} · {project.year}
-                  </p>
                 </div>
-                <span className="project__go">Visit ↗</span>
-              </div>
-            </a>
-          ))}
+                <div className="project__body">
+                  <div>
+                    <h2 className="project__name">{project.name}</h2>
+                    <p className="project__summary">{project.summary}</p>
+                    <p className="project__tags">
+                      {project.category} · {project.year}
+                    </p>
+                  </div>
+                  <div className="project__links">
+                    {project.links.map((link) => (
+                      <a
+                        key={`${project.id}-${link.label}`}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {link.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </section>
 

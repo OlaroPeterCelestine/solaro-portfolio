@@ -1,3 +1,8 @@
+export type ProjectLink = {
+  label: string
+  url: string
+}
+
 export type Project = {
   id: string
   name: string
@@ -5,10 +10,8 @@ export type Project = {
   category: string
   year: string
   summary: string
-  url: string
   image: string
-  span: 'wide' | 'tall' | 'normal'
-  platforms?: string[]
+  links: ProjectLink[]
 }
 
 export const skills = [
@@ -46,11 +49,19 @@ export const projects: Project[] = [
     category: 'Radio',
     year: '2023',
     summary:
-      'App and website for NRG 106.5 FM — live listen & watch, shows, deejays, news, and events.',
-    url: 'https://www.nrgug.radio/',
+      'Built the website and Flutter apps for NRG 106.5 FM — live listen & watch, shows, news, and events.',
     image: '/work/nrg-ug.jpg',
-    span: 'wide',
-    platforms: ['App', 'Web', 'API'],
+    links: [
+      { label: 'Website', url: 'https://www.nrgug.radio/' },
+      {
+        label: 'Android app',
+        url: 'https://play.google.com/store/apps/details?id=com.nrgug.player',
+      },
+      {
+        label: 'iOS app',
+        url: 'https://apps.apple.com/ug/app/nrg-radio-uganda/id6633429782',
+      },
+    ],
   },
   {
     id: 'stream-ug',
@@ -59,35 +70,12 @@ export const projects: Project[] = [
     category: 'Radio',
     year: '2023',
     summary:
-      'App and website for digital radio from Kampala — live stream, schedule, news, and culture.',
-    url: 'https://streamugradio.com/',
+      'App and website for Kampala digital radio — live stream, schedule, news, and culture.',
     image: '/work/stream-ug.jpg',
-    span: 'tall',
-    platforms: ['App', 'Web'],
-  },
-  {
-    id: 'sabc-news',
-    name: 'SABC News',
-    client: 'SABC',
-    category: 'News',
-    year: '2022',
-    summary: 'Live news product for South Africa’s public broadcaster.',
-    url: 'https://www.sabcnews.com/',
-    image: '/work/sabc-news.jpg',
-    span: 'normal',
-    platforms: ['Web'],
-  },
-  {
-    id: 'sabc-tv',
-    name: 'SABC TV',
-    client: 'SABC',
-    category: 'Television',
-    year: '2022',
-    summary: 'Programme guides and viewer journeys for national TV.',
-    url: 'https://www.sabc.co.za/',
-    image: '/work/sabc-tv.jpg',
-    span: 'normal',
-    platforms: ['Web'],
+    links: [
+      { label: 'Website', url: 'https://streamugradio.com/' },
+      { label: 'App', url: 'https://streamugradio.com/changelog' },
+    ],
   },
   {
     id: 'mesob-live',
@@ -96,11 +84,15 @@ export const projects: Project[] = [
     category: 'Live',
     year: '2024',
     summary:
-      'App and website for live culture and entertainment for the Ethiopian diaspora.',
-    url: 'https://mesob.live/',
+      'App, website, and API for Habesha cultural radio — live shows for East Africa and the diaspora.',
     image: '/work/mesob-live.jpg',
-    span: 'wide',
-    platforms: ['App', 'Web', 'API'],
+    links: [
+      { label: 'Website', url: 'https://www.mesob.live/' },
+      {
+        label: 'Android app',
+        url: 'https://play.google.com/store/apps/details?id=com.mesob.player',
+      },
+    ],
   },
   {
     id: 'playtz',
@@ -110,10 +102,34 @@ export const projects: Project[] = [
     year: '2024',
     summary:
       'Streaming product across web and app — identity, profiles, and content navigation.',
-    url: 'https://playtz.com/',
     image: '/work/playtz.jpg',
-    span: 'normal',
-    platforms: ['App', 'Web', 'API'],
+    links: [
+      { label: 'Website', url: 'https://playtz.com/' },
+      {
+        label: 'Android app',
+        url: 'https://play.google.com/store/apps/details?id=com.playtz.radio',
+      },
+    ],
+  },
+  {
+    id: 'sabc-news',
+    name: 'SABC News',
+    client: 'SABC',
+    category: 'News',
+    year: '2022',
+    summary: 'Live news product for South Africa’s public broadcaster.',
+    image: '/work/sabc-news.jpg',
+    links: [{ label: 'Website', url: 'https://www.sabcnews.com/' }],
+  },
+  {
+    id: 'sabc-tv',
+    name: 'SABC TV',
+    client: 'SABC',
+    category: 'Television',
+    year: '2022',
+    summary: 'Programme guides and viewer journeys for national TV.',
+    image: '/work/sabc-tv.jpg',
+    links: [{ label: 'Website', url: 'https://www.sabc.co.za/' }],
   },
   {
     id: 'teamwork',
@@ -122,10 +138,8 @@ export const projects: Project[] = [
     category: 'SaaS',
     year: '2021',
     summary: 'Project and client work management for agency profitability.',
-    url: 'https://www.teamwork.com/',
     image: '/work/teamwork.jpg',
-    span: 'normal',
-    platforms: ['Web'],
+    links: [{ label: 'Website', url: 'https://www.teamwork.com/' }],
   },
   {
     id: 'thoughtworks',
@@ -134,10 +148,8 @@ export const projects: Project[] = [
     category: 'Consulting',
     year: '2021',
     summary: 'Digital product delivery with engineering teams across the stack.',
-    url: 'https://www.thoughtworks.com/',
     image: '/work/thoughtworks.jpg',
-    span: 'normal',
-    platforms: ['Web'],
+    links: [{ label: 'Website', url: 'https://www.thoughtworks.com/' }],
   },
   {
     id: 'vodafone-travel',
@@ -146,10 +158,11 @@ export const projects: Project[] = [
     category: 'Travel',
     year: '2021',
     summary: 'Roaming and travel connectivity for people on the move.',
-    url: 'https://www.vodafone.com/',
     image: '/work/vodafone-travel.jpg',
-    span: 'normal',
-    platforms: ['App', 'Web'],
+    links: [
+      { label: 'Website', url: 'https://www.vodafone.com/' },
+      { label: 'App', url: 'https://www.vodafone.com/' },
+    ],
   },
   {
     id: 'mastercard-travel',
@@ -158,9 +171,10 @@ export const projects: Project[] = [
     category: 'Fintech',
     year: '2020',
     summary: 'Travel pass benefits and spend experience abroad.',
-    url: 'https://www.mastercard.com/',
     image: '/work/mastercard-travel.jpg',
-    span: 'tall',
-    platforms: ['App', 'Web'],
+    links: [
+      { label: 'Website', url: 'https://www.mastercard.com/' },
+      { label: 'App', url: 'https://www.mastercard.com/' },
+    ],
   },
 ]
