@@ -217,10 +217,6 @@ function App() {
           <h2 className="section__title">
             Stations, streams &amp; the odd travel brief.
           </h2>
-          <p className="section__sub">
-            Selected collaborations — apps and websites where craft and clarity
-            matter.
-          </p>
         </Reveal>
         <Stagger as="ol" className="contents">
           {projects.map((project, index) => (
