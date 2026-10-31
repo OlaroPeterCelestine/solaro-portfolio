@@ -32,12 +32,32 @@ export const skills = [
     detail: 'Interactive frontends and Node services',
   },
   {
-    name: 'Kotlin & Swift',
-    detail: 'Native layers alongside Flutter mobile builds',
+    name: 'Python',
+    detail: 'Scripts, services, and backend systems',
   },
   {
-    name: 'PHP & Python',
-    detail: 'Services, tooling, and supporting backends',
+    name: 'Django',
+    detail: 'Full-stack web apps and admin backends',
+  },
+  {
+    name: 'FastAPI',
+    detail: 'High-performance Python APIs',
+  },
+  {
+    name: 'PostgreSQL',
+    detail: 'Relational data for production products',
+  },
+  {
+    name: 'SQLite',
+    detail: 'Local and lightweight app databases',
+  },
+  {
+    name: 'Firebase',
+    detail: 'Auth, realtime data, and cloud messaging',
+  },
+  {
+    name: 'Kotlin & Swift',
+    detail: 'Native layers alongside Flutter mobile builds',
   },
 ]
 
