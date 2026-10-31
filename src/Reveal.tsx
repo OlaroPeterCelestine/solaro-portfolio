@@ -11,6 +11,9 @@ type RevealProps = {
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+/** Expand the intersection root so top-of-viewport sections still fire. */
+const inView = { once: true, amount: 0.05, margin: '80px 0px 80px 0px' } as const
+
 export function Reveal({
   children,
   className,
@@ -29,7 +32,7 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: '-8% 0px -8% 0px' }}
+      viewport={{ ...inView, once }}
       transition={{ duration: 0.7, delay, ease }}
     >
       {children}
@@ -57,13 +60,18 @@ export function Stagger({
 
   const Comp = as === 'ol' ? motion.ol : as === 'ul' ? motion.ul : motion.div
 
+  if (reduce) {
+    const Tag = as
+    return <Tag className={className}>{children}</Tag>
+  }
+
   return (
     <Comp
       className={className}
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-6% 0px' }}
+      viewport={inView}
     >
       {children}
     </Comp>
@@ -82,7 +90,7 @@ export function StaggerItem({
   const reduce = useReducedMotion()
 
   const item: Variants = {
-    hidden: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
+    hidden: { opacity: 0, y: 18 },
     show: {
       opacity: 1,
       y: 0,
@@ -91,6 +99,11 @@ export function StaggerItem({
   }
 
   const Comp = as === 'li' ? motion.li : motion.div
+
+  if (reduce) {
+    const Tag = as
+    return <Tag className={className}>{children}</Tag>
+  }
 
   return (
     <Comp className={className} variants={item}>
