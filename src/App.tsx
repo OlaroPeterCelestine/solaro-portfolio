@@ -221,40 +221,34 @@ function App() {
             Ten collaborations — apps and websites where the live moment matters.
           </p>
         </Reveal>
-        <Stagger>
-          <ol className="contents">
-            {projects.map((project, index) => (
-              <StaggerItem key={project.id}>
-                <li>
-                  <a href={`#chapter-${project.id}`}>
-                    <span className="contents__num">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span>
-                      <span className="contents__name">{project.name}</span>
-                      <p className="contents__blurb">{project.summary}</p>
-                    </span>
-                    <span className="contents__meta">{project.category}</span>
-                  </a>
-                </li>
-              </StaggerItem>
-            ))}
-            <StaggerItem>
-              <li>
-                <a href="#about">
-                  <span className="contents__num">✎</span>
-                  <span>
-                    <span className="contents__name">About the author</span>
-                    <p className="contents__blurb">
-                      Swimming, rugby, basketball &amp; triathlon — then back to
-                      the desk.
-                    </p>
-                  </span>
-                  <span className="contents__meta">Notes</span>
-                </a>
-              </li>
+        <Stagger as="ol" className="contents">
+          {projects.map((project, index) => (
+            <StaggerItem as="li" key={project.id}>
+              <a className="contents__row" href={`#chapter-${project.id}`}>
+                <span className="contents__num">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="contents__main">
+                  <span className="contents__name">{project.name}</span>
+                  <span className="contents__blurb">{project.summary}</span>
+                </span>
+                <span className="contents__meta">{project.category}</span>
+              </a>
             </StaggerItem>
-          </ol>
+          ))}
+          <StaggerItem as="li">
+            <a className="contents__row" href="#about">
+              <span className="contents__num">✎</span>
+              <span className="contents__main">
+                <span className="contents__name">About the author</span>
+                <span className="contents__blurb">
+                  Swimming, rugby, basketball &amp; triathlon — then back to the
+                  desk.
+                </span>
+              </span>
+              <span className="contents__meta">Notes</span>
+            </a>
+          </StaggerItem>
         </Stagger>
       </section>
 
@@ -345,31 +339,29 @@ function App() {
           <Reveal>
             <p className="section__eyebrow">Also on the shelf</p>
           </Reveal>
-          <Stagger>
-            <ol className="contents">
-              {projects
-                .filter((p) => !p.featured)
-                .map((project, index) => (
-                  <StaggerItem key={project.id}>
-                    <li id={`chapter-${project.id}`}>
-                      <a
-                        href={project.links[0]?.url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <span className="contents__num">
-                          {String(index + 5).padStart(2, '0')}
-                        </span>
-                        <span>
-                          <span className="contents__name">{project.name}</span>
-                          <p className="contents__blurb">{project.summary}</p>
-                        </span>
-                        <span className="contents__meta">{project.category}</span>
-                      </a>
-                    </li>
-                  </StaggerItem>
-                ))}
-            </ol>
+          <Stagger as="ol" className="contents">
+            {projects
+              .filter((p) => !p.featured)
+              .map((project, index) => (
+                <StaggerItem as="li" key={project.id}>
+                  <a
+                    className="contents__row"
+                    id={`chapter-${project.id}`}
+                    href={project.links[0]?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span className="contents__num">
+                      {String(index + 5).padStart(2, '0')}
+                    </span>
+                    <span className="contents__main">
+                      <span className="contents__name">{project.name}</span>
+                      <span className="contents__blurb">{project.summary}</span>
+                    </span>
+                    <span className="contents__meta">{project.category}</span>
+                  </a>
+                </StaggerItem>
+              ))}
           </Stagger>
         </div>
       </section>

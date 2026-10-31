@@ -40,9 +40,11 @@ export function Reveal({
 export function Stagger({
   children,
   className,
+  as = 'div',
 }: {
   children: ReactNode
   className?: string
+  as?: 'div' | 'ol' | 'ul'
 }) {
   const reduce = useReducedMotion()
 
@@ -53,8 +55,10 @@ export function Stagger({
     },
   }
 
+  const Comp = as === 'ol' ? motion.ol : as === 'ul' ? motion.ul : motion.div
+
   return (
-    <motion.div
+    <Comp
       className={className}
       variants={container}
       initial="hidden"
@@ -62,16 +66,18 @@ export function Stagger({
       viewport={{ once: true, margin: '-6% 0px' }}
     >
       {children}
-    </motion.div>
+    </Comp>
   )
 }
 
 export function StaggerItem({
   children,
   className,
+  as = 'div',
 }: {
   children: ReactNode
   className?: string
+  as?: 'div' | 'li'
 }) {
   const reduce = useReducedMotion()
 
@@ -84,9 +90,11 @@ export function StaggerItem({
     },
   }
 
+  const Comp = as === 'li' ? motion.li : motion.div
+
   return (
-    <motion.div className={className} variants={item}>
+    <Comp className={className} variants={item}>
       {children}
-    </motion.div>
+    </Comp>
   )
 }
