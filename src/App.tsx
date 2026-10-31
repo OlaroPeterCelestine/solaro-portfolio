@@ -368,10 +368,7 @@ function App() {
                   <span className="contents__name">{project.name}</span>
                   <span className="contents__blurb">{project.summary}</span>
                 </span>
-                <span className="contents__meta">
-                  <span>{project.category}</span>
-                  <span>{project.year}</span>
-                </span>
+                <span className="contents__meta">{project.category}</span>
               </a>
             </li>
           ))}
@@ -457,7 +454,7 @@ function App() {
               </a>
               <div>
                 <p className="chapter__kicker">
-                  Chapter {String(index + 1).padStart(2, '0')} · {project.year}
+                  Chapter {String(index + 1).padStart(2, '0')} · {project.category}
                 </p>
                 <h3 className="chapter__title">{project.name}</h3>
                 <p className="chapter__summary">{project.summary}</p>
@@ -506,7 +503,6 @@ function App() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <span className="drawer__year">{project.year}</span>
                   <span className="drawer__name">{project.name}</span>
                   <span className="drawer__blurb">{project.summary}</span>
                 </a>
