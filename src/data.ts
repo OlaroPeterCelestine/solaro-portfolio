@@ -175,12 +175,24 @@ export const projects: Project[] = [
     id: 'sabc-tv',
     name: 'SABC TV',
     client: 'SABC',
-    category: 'Web',
+    category: 'App · Web',
     year: '2022',
-    summary: 'Programme guides and viewer journeys for national TV.',
-    story: 'TV product surfaces for schedules and watching at scale.',
+    summary:
+      'National TV on the web and in your pocket — live, catch-up, and watching at scale.',
+    story:
+      'SABC TV needed to meet viewers on every screen. Website plus iOS and Android apps for programme guides, live channels, and catch-up.',
     image: '/work/sabc-tv.jpg',
-    links: [{ label: 'Website', url: 'https://www.sabc.co.za/' }],
+    links: [
+      { label: 'Website', url: 'https://www.sabc.co.za/' },
+      {
+        label: 'Android app',
+        url: 'https://play.google.com/store/apps/details?id=tv.sabcplus.vod',
+      },
+      {
+        label: 'iOS app',
+        url: 'https://apps.apple.com/za/app/sabc/id6444331178',
+      },
+    ],
   },
   {
     id: 'teamwork',
