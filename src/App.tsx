@@ -19,7 +19,7 @@ function App() {
             <li>
               <a href="#work">Work</a>
             </li>
-            <li>
+            <li className="nav__hide-sm">
               <a href="#skills">Skills</a>
             </li>
             <li>
@@ -30,7 +30,7 @@ function App() {
                 Reach out
               </a>
             </li>
-            <li>
+            <li className="nav__hide-sm">
               <a href="mailto:hello@olaro.design">Email</a>
             </li>
           </ul>

@@ -7,7 +7,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noreferrer"
       aria-label="Reach out on WhatsApp"
-      className="group fixed bottom-5 right-5 z-[100] flex items-center gap-2 rounded-full bg-[#25D366] pl-3.5 pr-4 py-3 text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#1ebe57] hover:shadow-[0_14px_34px_rgba(37,211,102,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:bottom-7 sm:right-7"
+      className="group fixed z-[100] flex items-center gap-2 rounded-full bg-[#25D366] py-3 pl-3.5 pr-4 text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#1ebe57] hover:shadow-[0_14px_34px_rgba(37,211,102,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] bottom-[max(1.15rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-[max(1.75rem,env(safe-area-inset-bottom))] sm:right-[max(1.75rem,env(safe-area-inset-right))]"
     >
       <svg
         viewBox="0 0 24 24"
