@@ -1,4 +1,4 @@
-import { WHATSAPP_URL } from './config'
+import { WHATSAPP_CONTACTS, WHATSAPP_URL } from './config'
 import { projects, skills } from './data'
 import { WhatsAppButton } from './WhatsAppButton'
 import './App.css'
@@ -169,16 +169,18 @@ function App() {
           <div id="contact">
             <h2>Reach out</h2>
             <ul className="contact__list">
-              <li>
-                <a
-                  className="contact__whatsapp"
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  WhatsApp
-                </a>
-              </li>
+              {WHATSAPP_CONTACTS.map((contact) => (
+                <li key={contact.number}>
+                  <a
+                    className="contact__whatsapp"
+                    href={contact.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    WhatsApp {contact.label} · {contact.display}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a href="mailto:hello@olaro.design">hello@olaro.design</a>
               </li>
