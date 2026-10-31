@@ -168,7 +168,7 @@ function App() {
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/peter-celestine-olaro-6b2aa6282"
                   target="_blank"
                   rel="noreferrer"
                 >
