@@ -218,7 +218,8 @@ function App() {
             Stations, streams &amp; the odd travel brief.
           </h2>
           <p className="section__sub">
-            Ten collaborations — apps and websites where the live moment matters.
+            Selected collaborations — apps and websites where craft and clarity
+            matter.
           </p>
         </Reveal>
         <Stagger as="ol" className="contents">

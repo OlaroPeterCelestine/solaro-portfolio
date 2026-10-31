@@ -160,6 +160,19 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'flip-avenue',
+    name: 'Flip Avenue Limited',
+    client: 'Flip Avenue Limited',
+    category: 'Web',
+    year: '2024',
+    summary:
+      'Interior architecture studio site — projects, process, and a clear path to book a visit.',
+    story:
+      'Flip Avenue needed a website that feels like the studio: calm, material-led, and easy for clients in Kampala to explore projects and get in touch.',
+    image: '/work/flip-avenue.jpg',
+    links: [{ label: 'Website', url: 'https://flipavenueltd.com/' }],
+  },
+  {
     id: 'sabc-news',
     name: 'SABC News',
     client: 'SABC',
