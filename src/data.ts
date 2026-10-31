@@ -214,8 +214,8 @@ export const projects: Project[] = [
     story: 'Travel connectivity product work for people who need signal abroad.',
     image: '/work/vodafone-travel.jpg',
     links: [
-      { label: 'Website', url: 'https://www.vodafone.com/' },
-      { label: 'App', url: 'https://www.vodafone.com/' },
+      { label: 'Website', url: 'https://travel.vodafone.com/' },
+      { label: 'App', url: 'https://travel.vodafone.com/' },
     ],
   },
   {
