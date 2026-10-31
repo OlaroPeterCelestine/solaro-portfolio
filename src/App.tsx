@@ -83,7 +83,6 @@ function App() {
       <header className="hero wrap" id="top">
         <p className="hero__kicker">
           <span>A working notebook</span>
-          <span>{year}</span>
         </p>
         <p className="hero__hello">Hi, I’m Olaro.</p>
         <h1 className="hero__title">
@@ -141,11 +140,7 @@ function App() {
                   <span className="contents__name">{project.name}</span>
                   <p className="contents__blurb">{project.summary}</p>
                 </span>
-                <span className="contents__meta">
-                  {project.category}
-                  <br />
-                  {project.year}
-                </span>
+                <span className="contents__meta">{project.category}</span>
               </a>
             </li>
           ))}
@@ -207,7 +202,7 @@ function App() {
             </div>
             <div>
               <p className="chapter__kicker">
-                Chapter {String(index + 1).padStart(2, '0')} · {project.year}
+                Chapter {String(index + 1).padStart(2, '0')} · {project.category}
               </p>
               <h3 className="chapter__title">{project.name}</h3>
               <p className="chapter__summary">{project.summary}</p>
@@ -235,7 +230,7 @@ function App() {
           </article>
         ))}
 
-        <div style={{ marginTop: '2.5rem' }}>
+        <div className="shelf">
           <p className="section__eyebrow">Also on the shelf</p>
           <ol className="contents">
             {projects
@@ -254,11 +249,7 @@ function App() {
                       <span className="contents__name">{project.name}</span>
                       <p className="contents__blurb">{project.summary}</p>
                     </span>
-                    <span className="contents__meta">
-                      {project.category}
-                      <br />
-                      {project.year}
-                    </span>
+                    <span className="contents__meta">{project.category}</span>
                   </a>
                 </li>
               ))}
