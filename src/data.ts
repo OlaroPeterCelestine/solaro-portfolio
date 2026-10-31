@@ -60,6 +60,21 @@ export const skills = [
     name: 'JavaScript',
     detail: 'Interactive frontends and Node services around the bigger systems.',
   },
+  {
+    name: 'IoT',
+    detail:
+      'Connected devices and sensor-driven systems — bridging hardware signals to software people can use.',
+  },
+  {
+    name: 'Automation',
+    detail:
+      'Workflows that remove the boring work: pipelines, scripts, and systems that keep running without babysitting.',
+  },
+  {
+    name: 'Data analysis',
+    detail:
+      'Turning raw logs and metrics into clear decisions — dashboards, insights, and stories the team can act on.',
+  },
 ]
 
 export const projects: Project[] = [

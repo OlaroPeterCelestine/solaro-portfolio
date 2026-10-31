@@ -14,18 +14,11 @@ function waUrl(number: string) {
 
 export const WHATSAPP_CONTACTS: WhatsAppContact[] = [
   {
-    label: 'Uganda',
+    label: 'WhatsApp',
     display: '+256 762 380 194',
     number: '256762380194',
     url: waUrl('256762380194'),
   },
-  {
-    label: 'Kenya',
-    display: '+254 119 564 688',
-    number: '254119564688',
-    url: waUrl('254119564688'),
-  },
 ]
 
-/** Primary floating button uses the Uganda number. */
 export const WHATSAPP_URL = WHATSAPP_CONTACTS[0].url

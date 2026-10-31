@@ -94,7 +94,7 @@ function App() {
           I’m a full-stack developer. I take radio and streaming products from a
           Flutter app in someone’s hand, to a TypeScript site that loads on a bad
           connection, to the Go, Django, or FastAPI backend quietly holding it
-          together.
+          together. I’m also strong with IoT, automation, and data analysis.
         </p>
         <div className="hero__actions">
           <a className="btn btn--solid" href="#chapters">
@@ -313,7 +313,7 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                WhatsApp {contact.label} · {contact.display} →
+                WhatsApp · {contact.display} →
               </a>
             ))}
             <a href="mailto:olaropetercelestine@gmail.com">
