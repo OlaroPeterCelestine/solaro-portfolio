@@ -11,7 +11,7 @@ function App() {
       <nav className="nav" aria-label="Primary">
         <div className="wrap nav__inner">
           <a className="nav__mark" href="#top">
-            Solaro
+            Olaro
           </a>
           <ul className="nav__links">
             <li>
@@ -21,7 +21,7 @@ function App() {
               <a href="#about">About</a>
             </li>
             <li>
-              <a href="mailto:hello@solaro.design">Email</a>
+              <a href="mailto:hello@olaro.design">Email</a>
             </li>
           </ul>
         </div>
@@ -30,7 +30,7 @@ function App() {
       <header className="hero wrap" id="top">
         <div className="hero__grid">
           <div>
-            <h1 className="hero__brand">Solaro</h1>
+            <h1 className="hero__brand">Olaro</h1>
             <p className="hero__name">Peter Celestine</p>
             <p className="hero__headline">
               Product design for radio, TV, streaming, and travel.
@@ -113,7 +113,7 @@ function App() {
           <div>
             <h2>About</h2>
             <p>
-              I’m Solaro Peter Celestine. I design products for broadcast,
+              I’m Olaro Peter Celestine. I design products for broadcast,
               streaming, and travel — interfaces that stay clear when things are
               live, loud, or moving fast.
             </p>
@@ -127,7 +127,7 @@ function App() {
             <h2>Contact</h2>
             <ul className="contact__list">
               <li>
-                <a href="mailto:hello@solaro.design">hello@solaro.design</a>
+                <a href="mailto:hello@olaro.design">hello@olaro.design</a>
               </li>
               <li>
                 <a
@@ -143,7 +143,7 @@ function App() {
         </div>
 
         <footer className="footer">
-          <span>Solaro Peter Celestine</span>
+          <span>Olaro Peter Celestine</span>
           <span>© {new Date().getFullYear()}</span>
         </footer>
       </section>
