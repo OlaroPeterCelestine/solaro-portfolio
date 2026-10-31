@@ -1,4 +1,4 @@
-import { projects } from './data'
+import { projects, skills } from './data'
 import { WhatsAppButton } from './WhatsAppButton'
 import './App.css'
 
@@ -18,6 +18,9 @@ function App() {
               <a href="#work">Work</a>
             </li>
             <li>
+              <a href="#skills">Skills</a>
+            </li>
+            <li>
               <a href="#about">About</a>
             </li>
             <li>
@@ -33,18 +36,19 @@ function App() {
             <h1 className="hero__brand">Olaro</h1>
             <p className="hero__name">Peter Celestine</p>
             <p className="hero__headline">
-              Product design for radio, TV, streaming, and travel.
+              I build radio apps, streaming platforms, and travel products.
             </p>
             <p className="hero__aside">
-              Work with African media and global brands — from{' '}
+              Full-stack work across mobile and web — from{' '}
               <a href="https://www.nrgug.radio/" target="_blank" rel="noreferrer">
                 NRG UG Radio
-              </a>
-              ,{' '}
+              </a>{' '}
+              and{' '}
               <a href="https://streamugradio.com/" target="_blank" rel="noreferrer">
                 Stream UG Radio
-              </a>
-              , and SABC to Teamwork, ThoughtWorks, Vodafone, and Mastercard.
+              </a>{' '}
+              to Mesob Live, Playtz, SABC, Teamwork, ThoughtWorks, Vodafone, and
+              Mastercard.
             </p>
           </div>
 
@@ -88,10 +92,17 @@ function App() {
               <div className="project__media">
                 <img
                   src={project.image}
-                  alt={`${project.name} — live site`}
+                  alt={`${project.name} — live product`}
                   loading="lazy"
                 />
                 <span className="project__shade" aria-hidden="true" />
+                {project.platforms && project.platforms.length > 0 && (
+                  <ul className="project__platforms" aria-label="Platforms">
+                    {project.platforms.map((platform) => (
+                      <li key={platform}>{platform}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="project__meta">
                 <div>
@@ -108,19 +119,36 @@ function App() {
         </div>
       </section>
 
+      <section className="skills wrap" id="skills">
+        <div className="work__head">
+          <p className="work__label">Languages & tools</p>
+          <p className="work__count">What I ship with</p>
+        </div>
+        <ul className="skills__grid">
+          {skills.map((skill) => (
+            <li key={skill.name} className="skills__item">
+              <h3 className="skills__name">{skill.name}</h3>
+              <p className="skills__detail">{skill.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="bottom wrap" id="about">
         <div className="bottom__grid">
           <div>
             <h2>About</h2>
             <p>
-              I’m Olaro Peter Celestine. I design products for broadcast,
-              streaming, and travel — interfaces that stay clear when things are
-              live, loud, or moving fast.
+              I’m Olaro Peter Celestine — a developer focused on broadcast and
+              streaming products. I write Flutter/Dart apps, TypeScript web
+              clients, and Go APIs so radio and live platforms work on phones and
+              in the browser.
             </p>
             <p>
-              Recent collaborators include NRG UG Radio, Stream UG Radio, SABC
-              TV, SABC News, Mesob Live, Playtz, Teamwork, ThoughtWorks,
-              Vodafone Travel, and Mastercard Travel Pass.
+              That stack shows up across NRG UG Radio, Stream UG Radio, Mesob
+              Live, and Playtz — app, website, and backend — plus work with SABC,
+              Teamwork, ThoughtWorks, Vodafone Travel, and Mastercard Travel
+              Pass.
             </p>
           </div>
           <div id="contact">
@@ -128,6 +156,15 @@ function App() {
             <ul className="contact__list">
               <li>
                 <a href="mailto:hello@olaro.design">hello@olaro.design</a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/OlaroPeterCelestine"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </a>
               </li>
               <li>
                 <a

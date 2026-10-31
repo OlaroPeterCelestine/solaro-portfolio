@@ -8,7 +8,35 @@ export type Project = {
   url: string
   image: string
   span: 'wide' | 'tall' | 'normal'
+  platforms?: string[]
 }
+
+export const skills = [
+  {
+    name: 'Dart & Flutter',
+    detail: 'iOS and Android radio & streaming apps',
+  },
+  {
+    name: 'TypeScript',
+    detail: 'Web apps, admin dashboards, and product sites',
+  },
+  {
+    name: 'Go',
+    detail: 'APIs and backends for live media products',
+  },
+  {
+    name: 'JavaScript',
+    detail: 'Interactive frontends and Node services',
+  },
+  {
+    name: 'Kotlin & Swift',
+    detail: 'Native layers alongside Flutter mobile builds',
+  },
+  {
+    name: 'PHP & Python',
+    detail: 'Services, tooling, and supporting backends',
+  },
+]
 
 export const projects: Project[] = [
   {
@@ -17,10 +45,12 @@ export const projects: Project[] = [
     client: 'NRG Uganda',
     category: 'Radio',
     year: '2023',
-    summary: 'Listen & watch live for NRG 106.5 FM Uganda — shows, deejays, news, and events.',
+    summary:
+      'App and website for NRG 106.5 FM — live listen & watch, shows, deejays, news, and events.',
     url: 'https://www.nrgug.radio/',
     image: '/work/nrg-ug.jpg',
     span: 'wide',
+    platforms: ['App', 'Web', 'API'],
   },
   {
     id: 'stream-ug',
@@ -28,10 +58,12 @@ export const projects: Project[] = [
     client: 'Stream UG Radio',
     category: 'Radio',
     year: '2023',
-    summary: 'Live listen experience for digital radio from Kampala — music, talk, and culture.',
+    summary:
+      'App and website for digital radio from Kampala — live stream, schedule, news, and culture.',
     url: 'https://streamugradio.com/',
     image: '/work/stream-ug.jpg',
     span: 'tall',
+    platforms: ['App', 'Web'],
   },
   {
     id: 'sabc-news',
@@ -43,6 +75,7 @@ export const projects: Project[] = [
     url: 'https://www.sabcnews.com/',
     image: '/work/sabc-news.jpg',
     span: 'normal',
+    platforms: ['Web'],
   },
   {
     id: 'sabc-tv',
@@ -54,6 +87,7 @@ export const projects: Project[] = [
     url: 'https://www.sabc.co.za/',
     image: '/work/sabc-tv.jpg',
     span: 'normal',
+    platforms: ['Web'],
   },
   {
     id: 'mesob-live',
@@ -61,10 +95,12 @@ export const projects: Project[] = [
     client: 'Mesob',
     category: 'Live',
     year: '2024',
-    summary: 'Live culture and entertainment for the Ethiopian diaspora.',
+    summary:
+      'App and website for live culture and entertainment for the Ethiopian diaspora.',
     url: 'https://mesob.live/',
     image: '/work/mesob-live.jpg',
     span: 'wide',
+    platforms: ['App', 'Web', 'API'],
   },
   {
     id: 'playtz',
@@ -72,10 +108,12 @@ export const projects: Project[] = [
     client: 'Playtz',
     category: 'Entertainment',
     year: '2024',
-    summary: 'Streaming identity, profiles, and content navigation.',
+    summary:
+      'Streaming product across web and app — identity, profiles, and content navigation.',
     url: 'https://playtz.com/',
     image: '/work/playtz.jpg',
     span: 'normal',
+    platforms: ['App', 'Web', 'API'],
   },
   {
     id: 'teamwork',
@@ -87,6 +125,7 @@ export const projects: Project[] = [
     url: 'https://www.teamwork.com/',
     image: '/work/teamwork.jpg',
     span: 'normal',
+    platforms: ['Web'],
   },
   {
     id: 'thoughtworks',
@@ -94,10 +133,11 @@ export const projects: Project[] = [
     client: 'ThoughtWorks',
     category: 'Consulting',
     year: '2021',
-    summary: 'Product design on digital engagements with engineering teams.',
+    summary: 'Digital product delivery with engineering teams across the stack.',
     url: 'https://www.thoughtworks.com/',
     image: '/work/thoughtworks.jpg',
     span: 'normal',
+    platforms: ['Web'],
   },
   {
     id: 'vodafone-travel',
@@ -109,6 +149,7 @@ export const projects: Project[] = [
     url: 'https://www.vodafone.com/',
     image: '/work/vodafone-travel.jpg',
     span: 'normal',
+    platforms: ['App', 'Web'],
   },
   {
     id: 'mastercard-travel',
@@ -120,5 +161,6 @@ export const projects: Project[] = [
     url: 'https://www.mastercard.com/',
     image: '/work/mastercard-travel.jpg',
     span: 'tall',
+    platforms: ['App', 'Web'],
   },
 ]
